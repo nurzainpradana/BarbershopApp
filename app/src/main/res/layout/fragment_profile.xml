@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="55dp"
+    android:paddingBottom="50dp"
+    tools:context=".view.profile.ProfileFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp"
+            android:orientation="vertical">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile_frame_photo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_circle_borderColor="@color/color_two"
+                app:shape_circle_borderWidth="2dp"/>
+
+            <TextView
+                android:id="@+id/tv_profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/iv_profile_frame_photo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="26dp"
+                style="@style/header.color_two"
+                android:layout_marginBottom="26dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_btn_primary_maroon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_profile_name" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_barbershop_name"
+            style="@style/body.bold"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tv_profile_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_barbershop_about"
+            style="@style/body.color_one"
+            android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_btn_primary_maroon"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_bantuan"
+            style="@style/body.bold"
+            android:layout_marginBottom="10dp"/>
+        <TextView
+            android:id="@+id/tv_profile_birthdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Klik menu yang ingin dicari /n 2. Cari menu pilihan anda /n 3. Cari peta yang anda tuju /n 4. Simpan Favorit untuk klik Favorit anda "
+            style="@style/body"
+            android:textColor="@color/color_one"
+            android:layout_marginBottom="10dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_btn_primary_maroon"/>
+        </LinearLayout>
+    </ScrollView>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_colour"
+    tools:context=".view.verification.VerificationAct">
+
+
+    <ImageView
+        android:id="@+id/organization_logo"
+        android:layout_width="56dp"
+        android:layout_height="54dp"
+        android:src="@drawable/img_cooperative_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="27dp"
+        android:contentDescription="@string/organization_logo" />
+
+        <TextView
+            android:id="@+id/organization_name"
+            android:fontFamily="@font/mont_medium"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/title_cooperative_name"
+            android:textSize="16sp"
+            android:textColor="@color/color_one"
+            app:layout_constraintStart_toEndOf="@id/organization_logo"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/layout_title"
+        android:text="@string/verification"
+        style="@style/header.color_three"
+        app:layout_constraintTop_toBottomOf="@+id/organization_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="70dp"/>
+
+    <ImageView
+        android:id="@+id/background_mosque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-20dp"
+        android:alpha="0.5"
+        android:contentDescription="@string/background_mosque"
+        android:src="@drawable/img_mosque"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/background_muslim_handshake"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="170dp"
+        android:src="@drawable/img_muamalah"
+        android:alpha="0.6"
+        android:contentDescription="@string/muslim_handshake"
+        app:layout_constraintTop_toTopOf="@id/background_mosque"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+        android:background="@drawable/bg_layout"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginTop="20dp"
+        android:padding="24dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/layout_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_send_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"/>
+
+        <TextView
+            android:text="@string/enter_verification_code"
+            style="@style/body"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6"
+            android:layout_marginTop="4dp">
+
+            <EditText
+                android:id="@+id/pin_one"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+            <EditText
+                android:id="@+id/pin_two"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+            <EditText
+                android:id="@+id/pin_three"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+            <EditText
+                android:id="@+id/pin_four"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+            <EditText
+                android:id="@+id/pin_five"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+            <EditText
+                android:id="@+id/pin_six"
+                style="@style/input.pin"
+                tools:ignore="Autofill,LabelFor" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_verification_next"
+            android:layout_marginTop="18sp"
+            style="@style/btn_primary.gold"
+            android:text="@string/next"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="@string/dont_recieve_sms"
+            style="@style/body"
+            android:layout_width="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_resend_code"
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="@string/resend"
+            style="@style/body"
+            android:fontFamily="@font/mont_bold"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

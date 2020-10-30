@@ -1,0 +1,134 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/color_one</item>
+        <item name="colorPrimaryDark">@color/color_two</item>
+        <item name="colorAccent">@color/color_three</item>
+    </style>
+
+    <!-- SUBHEADER TEXT STYLE -->
+
+    <style name="subheader">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/mont_light</item>
+        <item name="android:textColor">@color/color_one</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- HEADER TEXT STYLE -->
+
+    <style name="header">
+        <item name="android:textSize">22sp</item>
+        <item name="android:fontFamily">@font/mont_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="header.color_three">
+        <item name="android:textColor">@color/color_three</item>
+    </style>
+
+    <style name="header.color_two">
+        <item name="android:textColor">@color/color_two</item>
+    </style>
+
+    <!-- BODY TEXT STYLE -->
+
+    <style name="body">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/mont_regular</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="body.color_three">
+        <item name="android:textColor">@color/color_three</item>
+    </style>
+
+    <style name="body.color_one">
+        <item name="android:textColor">@color/color_one</item>
+    </style>
+
+    <style name="body.bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="body.bold.maroon">
+        <item name="android:textColor">@color/color_two</item>
+    </style>
+
+    <!-- BUTTON STYLE -->
+    <style name="btn_primary">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/mont_regular</item>
+        <item name="elevation">2dp</item>
+    </style>
+
+    <style name="btn_primary.gold">
+        <item name="android:background">@drawable/bg_btn_primary_gold</item>
+    </style>
+
+    <style name="btn_primary.maroon">
+        <item name="android:background">@drawable/bg_btn_primary_maroon</item>
+    </style>
+
+    <style name="btn_primary.cream">
+        <item name="android:background">@drawable/bg_btn_primary_cream</item>
+    </style>
+
+    <!-- INPUT STYLE -->
+    <style name="input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/bg_edt_input_edit</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/color_four</item>
+    </style>
+
+    <style name="input.text">
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="input.maroon">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/bg_edt_input_edit_maroon</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/color_four</item>
+    </style>
+
+    <style name="input.maroon.text">
+        <item name="android:inputType">text</item>
+    </style>
+
+
+    <style name="input.pin">
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="line_grey">
+        <item name="android:background">@color/warna5</item>
+        <item name="android:alpha">0.5</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
