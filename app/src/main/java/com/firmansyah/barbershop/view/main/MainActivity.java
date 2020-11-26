@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.firmansyah.barbershop.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.firmansyah.barbershop.R;
 import com.firmansyah.barbershop.util.Const;
@@ -22,6 +23,7 @@ import com.firmansyah.barbershop.view.profile.ProfileFragment;
 import com.firmansyah.barbershop.view.transaction.TransactionFragment;
 
 public class MainActivity extends AppCompatActivity {
+    ActivityMainBinding bind;
     private TextView textView;
 
     //BottomNavBar
@@ -60,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        bind = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(bind.getRoot());
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

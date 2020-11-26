@@ -252,7 +252,7 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
                 startActivity(goToMaps);
                  */
                 // Create a Uri from an intent string. Use the result to create an Intent.
-                Uri gmmIntentUri = Uri.parse("geo:"+latitude+","+longitude);
+                Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
                 // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 // Make the Intent explicit by setting the Google Maps package
