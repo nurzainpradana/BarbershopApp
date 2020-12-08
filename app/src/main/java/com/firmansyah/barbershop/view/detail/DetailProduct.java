@@ -55,6 +55,12 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
 
     @BindView(R.id.img_detail_product)
     ImageView imgDetail;
+    @BindView(R.id.iv_gambar_detail_1)
+    ImageView imgDetail1;
+    @BindView(R.id.iv_gambar_detail_2)
+    ImageView imgDetail2;
+    @BindView(R.id.iv_gambar_detail_3)
+    ImageView imgDetail3;
     @BindView(R.id.name_detail_product)
     TextView nameDetail;
     @BindView(R.id.tv_adress_barbershop)
@@ -112,6 +118,18 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
                 .load(acc.getStringExtra("gambar_barber"))
                 .error(R.mipmap.ic_launcher)
                 .into(imgDetail);
+
+        Picasso.get()
+                .load(acc.getStringExtra("gambar_barber_1"))
+                .into(imgDetail1);
+
+        Picasso.get()
+                .load(acc.getStringExtra("gambar_barber_2"))
+                .into(imgDetail2);
+
+        Picasso.get()
+                .load(acc.getStringExtra("gambar_barber_3"))
+                .into(imgDetail3);
 
         btnAddCart = findViewById(R.id.btn_addcart);
         btnAddCart.setOnClickListener(this);

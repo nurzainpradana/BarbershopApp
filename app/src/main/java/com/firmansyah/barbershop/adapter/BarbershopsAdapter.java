@@ -64,6 +64,9 @@ public class BarbershopsAdapter extends RecyclerView.Adapter<BarbershopsAdapter.
                 detailIntent.putExtra("id_barber", barbershopsList.get(i).getIdBarber());
                 detailIntent.putExtra("nama_barber", barbershopsList.get(i).getNamaBarber());
                 detailIntent.putExtra("gambar_barber", barbershopsList.get(i).getGambarBarber());
+                detailIntent.putExtra("gambar_barber_1", barbershopsList.get(i).getGambarBarber1());
+                detailIntent.putExtra("gambar_barber_2", barbershopsList.get(i).getGambarBarber2());
+                detailIntent.putExtra("gambar_barber_3", barbershopsList.get(i).getGambarBarber3());
                 detailIntent.putExtra("alamat_barber", barbershopsList.get(i).getAlamatBarber());
                 detailIntent.putExtra("deskripsi_barber", barbershopsList.get(i).getDeskripsiBarber());
                 detailIntent.putExtra("latitude_barber", barbershopsList.get(i).getLatitudeBarber());

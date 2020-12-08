@@ -13,6 +13,15 @@ public class Barbershop {
     @SerializedName("gambar_barber")
     @Expose
     private String gambarBarber;
+    @SerializedName("gambar_barber_1")
+    @Expose
+    private String gambarBarber1;
+    @SerializedName("gambar_barber_2")
+    @Expose
+    private String gambarBarber2;
+    @SerializedName("gambar_barber_3")
+    @Expose
+    private String gambarBarber3;
     @SerializedName("alamat_barber")
     @Expose
     private String alamatBarber;
@@ -44,6 +53,30 @@ public class Barbershop {
 
     public String getGambarBarber() {
         return gambarBarber;
+    }
+
+    public String getGambarBarber1() {
+        return gambarBarber1;
+    }
+
+    public void setGambarBarber1(String gambarBarber1) {
+        this.gambarBarber1 = gambarBarber1;
+    }
+
+    public String getGambarBarber2() {
+        return gambarBarber2;
+    }
+
+    public void setGambarBarber2(String gambarBarber2) {
+        this.gambarBarber2 = gambarBarber2;
+    }
+
+    public String getGambarBarber3() {
+        return gambarBarber3;
+    }
+
+    public void setGambarBarber3(String gambarBarber3) {
+        this.gambarBarber3 = gambarBarber3;
     }
 
     public void setGambarBarber(String gambarBarber) {

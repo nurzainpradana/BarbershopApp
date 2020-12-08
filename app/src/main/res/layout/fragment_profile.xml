@@ -82,7 +82,7 @@
             android:id="@+id/tv_profile_birthdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Klik menu yang ingin dicari /n 2. Cari menu pilihan anda /n 3. Cari peta yang anda tuju /n 4. Simpan Favorit untuk klik Favorit anda "
+            android:text="@string/bantuan_desc"
             style="@style/body"
             android:textColor="@color/color_one"
             android:layout_marginBottom="10dp"/>

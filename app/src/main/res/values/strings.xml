@@ -88,7 +88,7 @@
     <string name="text_help">Bantuan</string>
     <string name="text_barbershop_name">BarBarBer</string>
     <string name="text_barbershop_about">"BarBarBer adalah aplikasi untuk pencarian barbershop yang ada di daerah bekasi selain pencarian barbershop, aplikasi ini juga memberikan informasi tentang fasilitas yang ada di barbershop "</string>
-    <string name="text_bantuan">Bantuan Aplikadi</string>
+    <string name="text_bantuan">Bantuan Aplikasi</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
@@ -182,5 +182,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
     <string name="detail_barbershop_text">Detail Barbershop</string>
+    <string name="bantuan_desc">1. Klik menu yang ingin dicari \n2. Cari menu pilihan anda \n3. Cari peta yang anda tuju \n4. Simpan Favorit untuk klik Favorit anda</string>
 
 </resources>
