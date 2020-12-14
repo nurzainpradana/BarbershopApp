@@ -58,15 +58,15 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".view.detail.ScrollingActivity"
-            android:label="@string/title_activity_scrolling"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.detailtransaction.DetailTransactionAct" />
-        <activity android:name=".view.updateprofile.UpdateProfileActivity" />
         <activity android:name=".view.detail.DetailProduct" />
-        <activity android:name=".view.updatepassword.UpdatePasswordAct" />
         <activity android:name=".view.main.MainActivity">
+
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".view.splashscreen.SplashScreenAct">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
 
@@ -76,18 +76,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".view.sucessregister.SuccessRegisterAct" />
-        <activity android:name=".view.registertwo.RegisterTwoAct" />
-        <activity android:name=".view.verification.VerificationAct" />
-        <activity android:name=".category.BasicFood" />
-        <activity android:name=".category.MensClothing" />
-        <activity android:name=".view.registerone.RegisterOneAct" />
-        <activity android:name=".view.splashscreen.SplashScreenAct" />
     </application>
 
 </manifest>

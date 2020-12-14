@@ -18,9 +18,7 @@ import com.firmansyah.barbershop.R;
 import com.firmansyah.barbershop.util.Const;
 import com.firmansyah.barbershop.view.home.HomeFragment;
 import com.firmansyah.barbershop.view.favorite.FavoriteFragment;
-import com.firmansyah.barbershop.view.cart.CartFragment;
 import com.firmansyah.barbershop.view.profile.ProfileFragment;
-import com.firmansyah.barbershop.view.transaction.TransactionFragment;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding bind;

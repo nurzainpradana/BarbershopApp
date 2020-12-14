@@ -3,7 +3,7 @@ package com.firmansyah.barbershop.util;
 
 public class Const {
 
-    public static final String BASE_URL = "http://zainpradana.com/koperasimasjid/";
+    public static final String BASE_URL = "http://zainpradana.com/barbershopapi/";
     public static final String IMAGE_USER_URL = BASE_URL + "image/user/";
     public static final String IMAGE_PRODUCT_URL = BASE_URL + "image/product/";
     public static final String ID_USER_KEY = "id_user";

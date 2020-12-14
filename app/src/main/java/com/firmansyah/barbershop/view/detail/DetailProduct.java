@@ -1,31 +1,40 @@
 package com.firmansyah.barbershop.view.detail;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.firmansyah.barbershop.R;
+import com.firmansyah.barbershop.adapter.BarbershopsAdapter;
 import com.firmansyah.barbershop.databinding.ActivityDetailProductBinding;
+import com.firmansyah.barbershop.databinding.FragmentHomeBinding;
 import com.firmansyah.barbershop.util.Const;
+import com.firmansyah.barbershop.util.NetworkUtility;
 import com.firmansyah.barbershop.util.SharePref;
-import com.firmansyah.barbershop.view.MapsActivity;
+import com.firmansyah.barbershop.view.favorite.FavoriteFragment;
+import com.firmansyah.barbershop.view.home.HomeFragment;
+import com.firmansyah.barbershop.viewmodel.BarbershopViewModel;
 import com.firmansyah.barbershop.viewmodel.FavoriteViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,19 +42,16 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
+import androidx.lifecycle.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailProduct extends AppCompatActivity implements View.OnClickListener, LocationListener, OnMapReadyCallback {
+public class DetailProduct extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
     MapView mapView;
     LocationManager locationManager;
     GoogleMap map;
@@ -68,15 +74,19 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.desc_detail_product)
     TextView descDetail;
     @BindView(R.id.btn_add_favorite)
-    ImageButton btnFavorite;
+    ImageView btnFavorite;
 
-    @BindView(R.id.btn_addcart)
-    Button btnAddCart;
+    @BindView(R.id.btn_menuju_lokasi)
+    Button btnMenujuLokasi;
 
     int quantity;
     int id_user;
     int id_product;
     int isFavorite;
+
+    int id_barber;
+
+    Intent acc = null;
 
     String barberName;
 
@@ -89,11 +99,11 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
         setContentView(bind.getRoot());
         ButterKnife.bind(this);
 
-        final Intent acc = getIntent();
+        acc = getIntent();
 
-        String id_products = acc.getExtras().getString("id_products");
-        if (id_products != null){
-            id_product = Integer.parseInt(id_products);
+        String id_barbers = acc.getExtras().getString("id_barber");
+        if (!id_barbers.equals("")){
+            id_barber = Integer.parseInt(id_barbers);
         }
 
         SharePref sharePref = new SharePref(this);
@@ -101,7 +111,7 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
 
         //Toast.makeText(this, String.valueOf(id_user), Toast.LENGTH_SHORT).show();
 
-        //checkFavorite(id_product, id_user);
+        checkFavorite(id_barber);
 
         nameDetail.setText(acc.getStringExtra("nama_barber"));
         priceDetail.setText(acc.getStringExtra("alamat_barber"));
@@ -111,66 +121,58 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
         longitude = Double.parseDouble(acc.getStringExtra("longitude_barber"));
         barberName = acc.getStringExtra("nama_barber");
 
-        Toast.makeText(this, String.valueOf(latitude) + String.valueOf(longitude), Toast.LENGTH_LONG).show();
         //tvIdproducts.setText(acc.getStringExtra("id_products"));
 
-        Picasso.get()
+        Glide.with(this)
                 .load(acc.getStringExtra("gambar_barber"))
-                .error(R.mipmap.ic_launcher)
                 .into(imgDetail);
-
-        Picasso.get()
+        Glide.with(this)
                 .load(acc.getStringExtra("gambar_barber_1"))
                 .into(imgDetail1);
-
-        Picasso.get()
+        Glide.with(this)
                 .load(acc.getStringExtra("gambar_barber_2"))
                 .into(imgDetail2);
-
-        Picasso.get()
+        Glide.with(this)
                 .load(acc.getStringExtra("gambar_barber_3"))
                 .into(imgDetail3);
 
-        btnAddCart = findViewById(R.id.btn_addcart);
-        btnAddCart.setOnClickListener(this);
+        btnMenujuLokasi = findViewById(R.id.btn_menuju_lokasi);
+        btnMenujuLokasi.setOnClickListener(this);
         btnFavorite.setOnClickListener(this);
 
         mapView = bind.mapView;
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        //Permission For Location
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            PermissionListener permissionListener = new PermissionListener() {
-                @Override
-                public void onPermissionGranted() {
-                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onPermissionDenied(List<String> deniedPermissions) {
-                    Toast.makeText(getApplicationContext(), "Permission not given", Toast.LENGTH_SHORT).show();
-                }
-            };
-
-            TedPermission.with(this).setPermissionListener(permissionListener)
-                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET).check();
-            return;
-        }
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) this);
-        Toast.makeText(getApplicationContext(), "Sedang Mengambil Data Lokasi, Pastikan GPS anda hidup", Toast.LENGTH_LONG).show();
+//        //Permission For Location
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            PermissionListener permissionListener = new PermissionListener() {
+//                @Override
+//                public void onPermissionGranted() {
+//                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                @Override
+//                public void onPermissionDenied(List<String> deniedPermissions) {
+//                    Toast.makeText(getApplicationContext(), "Permission not given", Toast.LENGTH_SHORT).show();
+//                }
+//            };
+//
+//            TedPermission.with(this).setPermissionListener(permissionListener)
+//                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET).check();
+//            return;
+//        }
     }
 
-/*
-    private void checkFavorite(Integer id_product, Integer id_user){
+
+    private void checkFavorite(Integer id_barber){
         favoriteViewModel = new FavoriteViewModel();
-        //favoriteViewModel.checkFavorite(this, id_user, id_product);
+        favoriteViewModel.checkFavorite(this, id_barber);
         favoriteViewModel.getResult().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                Log.d("RES CHECK", integer.toString());
+                Log.i("RES CHECK", integer.toString());
                 if (integer == 1){
                     btnFavorite.setImageResource(R.drawable.ic_favorite);
                     isFavorite = 1;
@@ -182,27 +184,31 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
             }
         });
     }
-    private void addToFavorite(int id_product, int id_user) {
+
+    private void addToFavorite(int id_barber) {
         SharePref sharePref = new SharePref(getApplicationContext());
         if (!NetworkUtility.isNetworkConnected(DetailProduct.this)) {
-            AppUtilits.viewMessage(DetailProduct.this, getString(R.string.network_not_connect));
+            Toast.makeText(this, getString(R.string.network_not_connect), Toast.LENGTH_SHORT).show();
         } else {
-            FavoriteViewModel favoriteViewModel = new FavoriteViewModel();
-            favoriteViewModel.addToFavorite(this, id_product, id_user);
-            btnFavorite.setImageResource(R.drawable.ic_favorite);
+            if (isFavorite == 0) {
+                FavoriteViewModel favoriteViewModel = new FavoriteViewModel();
+                favoriteViewModel.addToFavorite(this, id_barber);
+                btnFavorite.setImageResource(R.drawable.ic_favorite);
+                isFavorite = 1;
+            }
         }
     }
 
-    private void deleteFromFavorite(int id_product, int id_user) {
+    private void deleteFromFavorite(int id_barber) {
         if (!NetworkUtility.isNetworkConnected(DetailProduct.this)) {
-            AppUtilits.viewMessage(DetailProduct.this, getString(R.string.network_not_connect));
+            Toast.makeText(this, getString(R.string.network_not_connect), Toast.LENGTH_SHORT).show();
         } else {
             FavoriteViewModel favoriteViewModel = new FavoriteViewModel();
-            favoriteViewModel.deleteFromFavorite(this, id_product, id_user);
+            favoriteViewModel.deleteFavorite(this, id_barber);
             btnFavorite.setImageResource(R.drawable.ic_non_favorite);
         }
     }
-
+/*
     private void addtoCart(int id_product, int id_user, int quantity) {
         if (!NetworkUtility.isNetworkConnected(DetailProduct.this)) {
             AppUtilits.viewMessage(DetailProduct.this, getString(R.string.network_not_connect));
@@ -244,7 +250,7 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
     //Back
     @OnClick(R.id.img_back)
     void back() {
-        finish();
+        onBackPressed();
     }
 
 
@@ -254,15 +260,15 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
 
             case R.id.btn_add_favorite:
                 if (isFavorite == 0){
-                  //  addToFavorite(id_product, id_user);
+                    addToFavorite(id_barber);
                     isFavorite = 1;
                 } else if(isFavorite == 1) {
-                    //deleteFromFavorite(id_product, id_user);
+                    deleteFromFavorite(id_barber);
                     isFavorite = 0;
                 }
                 break;
 
-            case R.id.btn_addcart:
+            case R.id.btn_menuju_lokasi:
                 /* Intent goToMaps = new Intent(this, MapsActivity.class);
                 goToMaps.putExtra("latitude_barber", latitude);
                 goToMaps.putExtra("longitude_barber", longitude);
@@ -279,37 +285,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
                 // Attempt to start an activity that can handle the Intent
                 startActivity(mapIntent);
         }
-    }
-
-        @Override
-        public void onLocationChanged(Location location) {
-            // longitude = location.getLongitude();
-            // latitude = location.getLatitude();
-
-            try {
-                Geocoder geocoder = new Geocoder(DetailProduct.this, Locale.getDefault());
-                List<Address> addressList = geocoder.getFromLocation(latitude, longitude, 1);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latitude, longitude)));
-            map.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
-            mapView.onResume();
-        }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
     }
 
     @Override
@@ -334,4 +309,80 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    public void keGambar1(View view) {
+        Dialog builder = new Dialog(this, android.R.style.Theme_Light);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.BLACK));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(this);
+        Glide.with(this)
+                .load(acc.getStringExtra("gambar_barber_1"))
+                .into(imageView);
+
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
+    }
+
+    public void keGambar2(View view) {
+        Dialog builder = new Dialog(this, android.R.style.Theme_Light);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.BLACK));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(this);
+        Glide.with(this)
+                .load(acc.getStringExtra("gambar_barber_2"))
+                .into(imageView);
+
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
+    }
+
+    public void keGambar3(View view) {
+        Dialog builder = new Dialog(this, android.R.style.Theme_Light);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.BLACK));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(this);
+        Glide.with(this)
+                .load(acc.getStringExtra("gambar_barber_3"))
+                .into(imageView);
+
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
+    }
+
+
 }

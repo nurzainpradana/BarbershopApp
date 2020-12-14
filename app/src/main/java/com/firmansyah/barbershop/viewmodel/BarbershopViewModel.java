@@ -10,12 +10,7 @@ import androidx.lifecycle.ViewModel;
 import com.firmansyah.barbershop.api.Api;
 import com.firmansyah.barbershop.api.ApiInterface;
 import com.firmansyah.barbershop.model.Barbershop;
-import com.firmansyah.barbershop.model.Result;
 import com.firmansyah.barbershop.model.ResultBarbershop;
-import com.firmansyah.barbershop.model.ResultUser;
-import com.firmansyah.barbershop.model.User;
-import com.firmansyah.barbershop.util.Const;
-import com.firmansyah.barbershop.util.SharePref;
 
 import java.util.List;
 
@@ -25,7 +20,7 @@ import retrofit2.Response;
 
 public class BarbershopViewModel extends ViewModel {
 
-    private MutableLiveData<List<Barbershop>> barberMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Barbershop>> barberMutableLiveData = new MutableLiveData<>();
 
     public void setBarshop(Context context) {
         ApiInterface Service;

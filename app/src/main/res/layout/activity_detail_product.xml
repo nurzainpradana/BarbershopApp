@@ -139,18 +139,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:onClick="keGambar1"
                     tools:src="@drawable/img_cooperative_logo"/>
                 <ImageView
                     android:id="@+id/iv_gambar_detail_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:onClick="keGambar2"
+                    android:scaleType="centerCrop"
                     tools:src="@drawable/img_cooperative_logo"/>
                 <ImageView
                     android:id="@+id/iv_gambar_detail_3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:scaleType="centerCrop"
+                    android:onClick="keGambar3"
                     tools:src="@drawable/img_cooperative_logo"/>
             </LinearLayout>
 
@@ -183,7 +192,7 @@
             <TextView
                 android:id="@+id/desc_detail_product"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="8dp"
@@ -225,12 +234,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mapView">
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/btn_add_favorite"
                     android:layout_width="95dp"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_btn_primary_cream"
                     android:padding="8dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_non_favorite"
@@ -239,14 +246,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
-                    android:id="@+id/btn_addcart"
-                    android:layout_width="250dp"
+                    android:id="@+id/btn_menuju_lokasi"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:background="@drawable/bg_btn_primary_maroon"
                     android:fontFamily="@font/mont_regular"
                     android:padding="8dp"
                     android:text="Menuju Alamat"
                     android:textColor="@color/warna5"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintStart_toEndOf="@id/btn_add_favorite"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

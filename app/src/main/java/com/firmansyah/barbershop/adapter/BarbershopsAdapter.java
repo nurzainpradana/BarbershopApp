@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,18 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firmansyah.barbershop.R;
 import com.firmansyah.barbershop.model.Barbershop;
-import com.firmansyah.barbershop.model.Product;
-import com.firmansyah.barbershop.util.Const;
 import com.firmansyah.barbershop.view.detail.DetailProduct;
 import com.squareup.picasso.Picasso;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.Url;
 
 public class BarbershopsAdapter extends RecyclerView.Adapter<BarbershopsAdapter.ProductViewHolder> {
 
@@ -96,5 +90,4 @@ public class BarbershopsAdapter extends RecyclerView.Adapter<BarbershopsAdapter.
             ButterKnife.bind(this, itemView);
         }
      }
-
 }

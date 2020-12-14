@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,21 +15,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.firmansyah.barbershop.R;
 import com.firmansyah.barbershop.adapter.BarbershopsAdapter;
-import com.firmansyah.barbershop.adapter.CartAdapter;
 import com.firmansyah.barbershop.model.Barbershop;
-import com.firmansyah.barbershop.model.ResultBarbershop;
 import com.firmansyah.barbershop.viewmodel.BarbershopViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
+    public static HomeFragment hf;
 
     private Context mContext;
     private List<Barbershop> barbershopList;
 
+    public static BarbershopsAdapter barbershopsAdapter;
     private RecyclerView rvBarbershop;
     BarbershopViewModel barbershopViewModel;
 
@@ -42,6 +40,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        hf = this;
+        mContext = getContext();
     }
 
     @Nullable
@@ -63,17 +63,21 @@ public class HomeFragment extends Fragment {
         loadDataBarbershop();
     }
 
-    private void loadDataBarbershop() {
-        barbershopViewModel.setBarshop(getContext());
+    public void loadDataBarbershop() {
+        barbershopViewModel.setBarshop(mContext);
         barbershopViewModel.getBarberMutableLiveData().observe(this.getViewLifecycleOwner(), new Observer<List<Barbershop>>() {
             @Override
             public void onChanged(List<Barbershop> barbershops) {
-                BarbershopsAdapter barbershopsAdapter = new BarbershopsAdapter(getContext(), barbershops);
+                barbershopsAdapter = new BarbershopsAdapter(mContext, barbershops);
                 rvBarbershop.setAdapter(barbershopsAdapter);
-                onResume();
             }
         });
 
     }
+
+    public void updateData(){
+        barbershopsAdapter.notifyDataSetChanged();
+    }
+
 
 }
