@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 
 public class BarbershopsAdapter extends RecyclerView.Adapter<BarbershopsAdapter.ProductViewHolder> {
 
-    Barbershop barbershop;
     private Context context;
     private List<Barbershop> barbershopsList;
 

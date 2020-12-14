@@ -24,17 +24,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.firmansyah.barbershop.R;
-import com.firmansyah.barbershop.adapter.BarbershopsAdapter;
 import com.firmansyah.barbershop.databinding.ActivityDetailProductBinding;
-import com.firmansyah.barbershop.databinding.FragmentHomeBinding;
 import com.firmansyah.barbershop.util.Const;
 import com.firmansyah.barbershop.util.NetworkUtility;
-import com.firmansyah.barbershop.util.SharePref;
-import com.firmansyah.barbershop.view.favorite.FavoriteFragment;
-import com.firmansyah.barbershop.view.home.HomeFragment;
-import com.firmansyah.barbershop.viewmodel.BarbershopViewModel;
 import com.firmansyah.barbershop.viewmodel.FavoriteViewModel;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,9 +35,6 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
 
 import androidx.lifecycle.Observer;
 import butterknife.BindView;
@@ -106,11 +96,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
             id_barber = Integer.parseInt(id_barbers);
         }
 
-        SharePref sharePref = new SharePref(this);
-        id_user = sharePref.getInt(Const.ID_USER_KEY);
-
-        //Toast.makeText(this, String.valueOf(id_user), Toast.LENGTH_SHORT).show();
-
         checkFavorite(id_barber);
 
         nameDetail.setText(acc.getStringExtra("nama_barber"));
@@ -120,8 +105,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
         latitude = Double.parseDouble(acc.getStringExtra("latitude_barber"));
         longitude = Double.parseDouble(acc.getStringExtra("longitude_barber"));
         barberName = acc.getStringExtra("nama_barber");
-
-        //tvIdproducts.setText(acc.getStringExtra("id_products"));
 
         Glide.with(this)
                 .load(acc.getStringExtra("gambar_barber"))
@@ -143,26 +126,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
         mapView = bind.mapView;
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
-//        //Permission For Location
-//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            PermissionListener permissionListener = new PermissionListener() {
-//                @Override
-//                public void onPermissionGranted() {
-//                    Toast.makeText(getApplicationContext(), "Permission granted", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                @Override
-//                public void onPermissionDenied(List<String> deniedPermissions) {
-//                    Toast.makeText(getApplicationContext(), "Permission not given", Toast.LENGTH_SHORT).show();
-//                }
-//            };
-//
-//            TedPermission.with(this).setPermissionListener(permissionListener)
-//                    .setPermissions(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.INTERNET).check();
-//            return;
-//        }
     }
 
 
@@ -186,7 +149,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
     }
 
     private void addToFavorite(int id_barber) {
-        SharePref sharePref = new SharePref(getApplicationContext());
         if (!NetworkUtility.isNetworkConnected(DetailProduct.this)) {
             Toast.makeText(this, getString(R.string.network_not_connect), Toast.LENGTH_SHORT).show();
         } else {
@@ -208,44 +170,6 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
             btnFavorite.setImageResource(R.drawable.ic_non_favorite);
         }
     }
-/*
-    private void addtoCart(int id_product, int id_user, int quantity) {
-        if (!NetworkUtility.isNetworkConnected(DetailProduct.this)) {
-            AppUtilits.viewMessage(DetailProduct.this, getString(R.string.network_not_connect));
-        } else {
-                CartViewModel cartViewModel = new CartViewModel();
-                cartViewModel.addToCart(this, id_product, id_user, quantity);
-
-            /*
-            call.enqueue(new Callback<AddtoCart>() {
-                @Override
-                public void onResponse(Call<AddtoCart> call, Response<AddtoCart> response) {
-                    Log.e("TAG", "respons is" + response.body().getInformation());
-                    if (response.body() != null && response.isSuccessful()) {
-                        if (response.body().getStatus() == 1) {
-
-                            //Toast.makeText(DetailProduct.this, "Berhasil ditambahkan", Toast.LENGTH_SHORT).show();
-                        } else {
-
-                        }
-                    } else {
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<AddtoCart> call, Throwable t) {
-                    AppUtilits.viewMessage(DetailProduct.this, getString(R.string.fail_add_to_wishlist));
-                }
-            });
-
-
-
-        }
-    }\
-
-
- */
 
     //Back
     @OnClick(R.id.img_back)
@@ -269,12 +193,7 @@ public class DetailProduct extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btn_menuju_lokasi:
-                /* Intent goToMaps = new Intent(this, MapsActivity.class);
-                goToMaps.putExtra("latitude_barber", latitude);
-                goToMaps.putExtra("longitude_barber", longitude);
-                goToMaps.putExtra("name_barber", barberName);
-                startActivity(goToMaps);
-                 */
+
                 // Create a Uri from an intent string. Use the result to create an Intent.
                 Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
                 // Create an Intent from gmmIntentUri. Set the action to ACTION_VIEW

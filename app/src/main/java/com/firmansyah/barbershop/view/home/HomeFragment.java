@@ -74,10 +74,4 @@ public class HomeFragment extends Fragment {
         });
 
     }
-
-    public void updateData(){
-        barbershopsAdapter.notifyDataSetChanged();
-    }
-
-
 }

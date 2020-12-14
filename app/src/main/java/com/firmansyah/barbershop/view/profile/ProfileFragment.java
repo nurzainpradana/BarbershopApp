@@ -1,29 +1,17 @@
 package com.firmansyah.barbershop.view.profile;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.firmansyah.barbershop.R;
-import com.firmansyah.barbershop.util.SharePref;
-import com.firmansyah.barbershop.viewmodel.BarbershopViewModel;
-import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 import butterknife.ButterKnife;
-
-import static com.firmansyah.barbershop.util.Const.IMAGE_USER_URL;
 
 public class ProfileFragment extends Fragment{
 

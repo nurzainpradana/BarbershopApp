@@ -76,11 +76,6 @@ public class FavoriteFragment extends Fragment {
 
     }
 
-
-    public void updateData(){
-        barbershopsAdapter.notifyDataSetChanged();
-    }
-
     @Override
     public void onResume() {
         super.onResume();
