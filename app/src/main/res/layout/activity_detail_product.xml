@@ -70,7 +70,6 @@
                 android:id="@+id/img_detail_product"
                 android:layout_width="0dp"
                 android:layout_height="300dp"
-                tools:src="@drawable/ic_profil"
                 android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,8 +140,7 @@
                     android:layout_weight="1"
                     android:layout_margin="8dp"
                     android:scaleType="centerCrop"
-                    android:onClick="keGambar1"
-                    tools:src="@drawable/img_cooperative_logo"/>
+                    android:onClick="keGambar1"/>
                 <ImageView
                     android:id="@+id/iv_gambar_detail_2"
                     android:layout_width="match_parent"
@@ -150,8 +148,7 @@
                     android:layout_weight="1"
                     android:layout_margin="8dp"
                     android:onClick="keGambar2"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/img_cooperative_logo"/>
+                    android:scaleType="centerCrop"/>
                 <ImageView
                     android:id="@+id/iv_gambar_detail_3"
                     android:layout_width="match_parent"
@@ -159,8 +156,7 @@
                     android:layout_weight="1"
                     android:layout_margin="8dp"
                     android:scaleType="centerCrop"
-                    android:onClick="keGambar3"
-                    tools:src="@drawable/img_cooperative_logo"/>
+                    android:onClick="keGambar3"/>
             </LinearLayout>
 
             <View
@@ -197,7 +193,6 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/mont_light"
-                android:text="@string/lorem"
                 android:textColor="@color/warna2"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"

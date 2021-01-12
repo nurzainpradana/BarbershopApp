@@ -10,9 +10,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.firmansyah.barbershop.R;
 import com.firmansyah.barbershop.adapter.BarbershopsAdapter;
 import com.firmansyah.barbershop.model.Barbershop;
@@ -28,10 +37,16 @@ public class HomeFragment extends Fragment {
     private Context mContext;
     private List<Barbershop> barbershopList;
 
-    public static BarbershopsAdapter barbershopsAdapter;
+    public BarbershopsAdapter barbershopsAdapter;
     private RecyclerView rvBarbershop;
     BarbershopViewModel barbershopViewModel;
 
+    LinearLayout llSearch;
+
+    TextView tvDataNotFound;
+
+    EditText etCari;
+    ImageButton btnCari;
 
     public static Fragment newInstance() {
         return new HomeFragment();
@@ -58,9 +73,63 @@ public class HomeFragment extends Fragment {
 
         barbershopViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(BarbershopViewModel.class);
 
+        llSearch = view.findViewById(R.id.ll_search);
+        llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         rvBarbershop = view.findViewById(R.id.rv_list_barbershop);
+
+        tvDataNotFound = view.findViewById(R.id.tv_data_not_found);
+
+        etCari = view.findViewById(R.id.et_cari);
+        btnCari = view.findViewById(R.id.btn_cari);
+
         rvBarbershop.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        btnCari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etCari.getText() == null || etCari.getText().toString().equals("")){
+                    loadDataBarbershop();
+                }else {
+                    loadCariBarber(etCari.getText().toString());
+                }
+                //barbershopsAdapter.notifyDataSetChanged();
+            }
+        });
+
         loadDataBarbershop();
+    }
+
+    private void loadCariBarber(String kata_kunci) {
+        barbershopViewModel.setCariBarshop(mContext, kata_kunci);
+        barbershopViewModel.getCariBarberMutableLiveData().observe(this.getViewLifecycleOwner(), new Observer<List<Barbershop>>() {
+            @Override
+            public void onChanged(List<Barbershop> barbershops) {
+                if (barbershops != null) {
+//                    tvDataNotFound.setVisibility(View.INVISIBLE);
+                    if (barbershops.size() > 0) {
+                        tvDataNotFound.setVisibility(View.INVISIBLE);
+                        barbershopsAdapter = new BarbershopsAdapter(mContext, barbershops);
+                        rvBarbershop.setAdapter(barbershopsAdapter);
+                        Log.i("TEST", "Case 1");
+                    } else {
+                        tvDataNotFound.setVisibility(View.VISIBLE);
+                        loadDataBarbershop();
+                        Log.i("TEST", "Case 2");
+                    }
+                } else {
+                    tvDataNotFound.setVisibility(View.INVISIBLE);
+//                    loadDataBarbershop();
+//                    Log.i("TEST", "Case 3");
+                }
+                //tvDataNotFound.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     public void loadDataBarbershop() {

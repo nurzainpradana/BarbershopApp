@@ -21,6 +21,7 @@ import retrofit2.Response;
 public class BarbershopViewModel extends ViewModel {
 
     public MutableLiveData<List<Barbershop>> barberMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<List<Barbershop>> cariBarberMutableLiveData = new MutableLiveData<>();
 
     public void setBarshop(Context context) {
         ApiInterface Service;
@@ -49,6 +50,41 @@ public class BarbershopViewModel extends ViewModel {
 
     public MutableLiveData<List<Barbershop>> getBarberMutableLiveData() {
         return barberMutableLiveData;
+    }
+
+    public void setCariBarshop(Context context, String kataKunci) {
+        ApiInterface Service;
+        Call<ResultBarbershop> Call;
+        try {
+            Service = Api.getApi().create(ApiInterface.class);
+            Call = Service.getSearchBarber(kataKunci);
+            Call.enqueue(new Callback<ResultBarbershop>() {
+                @Override
+                public void onResponse(retrofit2.Call<ResultBarbershop> call, Response<ResultBarbershop> response) {
+                    if (response.body() != null){
+                        List<Barbershop> barber = response.body().getResult();
+                        cariBarberMutableLiveData.postValue(barber);
+                        Log.d("ERROR VM", cariBarberMutableLiveData.toString());
+                    } else {
+                        Log.d("ERROR VM", "error");
+                    }
+
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<ResultBarbershop> call, Throwable t) {
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("ERROR 1", t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d("ERROR EUY", e.getMessage());
+        }
+    }
+
+    public MutableLiveData<List<Barbershop>> getCariBarberMutableLiveData() {
+        return cariBarberMutableLiveData;
     }
 }
 

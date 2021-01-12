@@ -16,6 +16,11 @@ public interface ApiInterface {
     @GET("barbershop/getAllBarber.php")
     Call<ResultBarbershop> getAllbarber();
 
+    @FormUrlEncoded
+    @POST("barbershop/getSearchBarbershop.php")
+    Call<ResultBarbershop> getSearchBarber(
+            @Field("kata_kunci") String kata_kunci);
+
     @GET("favorite/getFavorite.php")
     Call<ResultBarbershop> getFavorite();
 
@@ -35,4 +40,5 @@ public interface ApiInterface {
     @POST("favorite/delete_from_favorite.php")
     Call<Result> deleteFromFavorite(
             @Part("id_barber") Integer id_barber);
+
 }
