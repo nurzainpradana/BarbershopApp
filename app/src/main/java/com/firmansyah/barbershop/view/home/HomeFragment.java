@@ -94,6 +94,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (etCari.getText() == null || etCari.getText().toString().equals("")){
+                    tvDataNotFound.setVisibility(View.INVISIBLE);
                     loadDataBarbershop();
                 }else {
                     loadCariBarber(etCari.getText().toString());
@@ -119,7 +120,7 @@ public class HomeFragment extends Fragment {
                         Log.i("TEST", "Case 1");
                     } else {
                         tvDataNotFound.setVisibility(View.VISIBLE);
-                        loadDataBarbershop();
+                        //loadDataBarbershop();
                         Log.i("TEST", "Case 2");
                     }
                 } else {
